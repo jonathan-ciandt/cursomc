@@ -13,18 +13,17 @@ import com.jonathan.cursomc.cursomc.domain.Categoria;
 @RequestMapping(value = "categorias")
 public class CategoriaResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> listar() {
+  @RequestMapping(method = RequestMethod.GET)
+  public List<Categoria> listar() {
 
-        Categoria cat1 = new Categoria(1, "informática");
-        Categoria cat2 = new Categoria(2, "escritório");
+    Categoria cat1 = new Categoria(1, "informática");
+    Categoria cat2 = new Categoria(2, "escritório");
 
-        List<Categoria> list = new ArrayList<>();
+    List<Categoria> list = new ArrayList<>();
 
-        list.add(cat1);
-        list.add(cat2);
+    list.add(cat1);
+    list.add(cat2);
 
-
-        return list;
+    return list;
   }
 }
