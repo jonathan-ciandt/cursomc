@@ -9,10 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Categoria implements Serializable {
+public class Produto implements Serializable {
+
   private static final long serialVersionUID = 1L;
 
   @Id
@@ -21,50 +24,41 @@ public class Categoria implements Serializable {
 
   private String nome;
 
-  @ManyToMany(mappedBy = "categorias")
-  private List<Produto> produtos = new ArrayList<>();
+  private Double preco;
 
-  public Categoria() {}
+  @ManyToMany
+  @JoinTable(
+      name = "PRODUTO_CATEGORIA",
+      joinColumns = @JoinColumn(name = "produto_id"),
+      inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+  private List<Categoria> categorias = new ArrayList<>();
 
-  public Categoria(Integer id, String nome) {
+  public Produto() {}
+
+  public Produto(Integer id, String nome, Double preco) {
     this.id = id;
     this.nome = nome;
-  }
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public String getNome() {
-    return nome;
-  }
-
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
-  public List<Produto> getProdutos() {
-    return produtos;
-  }
-
-  public void setProdutos(List<Produto> produtos) {
-    this.produtos = produtos;
+    this.preco = preco;
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Categoria categoria = (Categoria) o;
-    return Objects.equals(id, categoria.id);
+    Produto produto = (Produto) o;
+    return id.equals(produto.id);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(id);
+  }
+
+  public List<Categoria> getCategorias() {
+    return categorias;
+  }
+
+  public void setCategorias(List<Categoria> categorias) {
+    this.categorias = categorias;
   }
 }
